@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MPCT - MTG Price Comparison for Czech Deck Builders</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    // Apply saved theme immediately to prevent flash of wrong theme
+    (function() {
+      var saved = localStorage.getItem('mpct-theme');
+      if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <header>
+    <h1>MPCT <span class="subtitle">Magic: The Gathering Price Comparison For Czech Deck Builders</span></h1>
+    <label class="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">
+      <input type="checkbox" id="themeToggle">
+      <span class="toggle-track">
+        <span class="toggle-thumb"></span>
+      </span>
+    </label>
+  </header>
+
+  <main>
+    <!-- Input Section -->
+    <section class="input-section">
+      <h2>Card List</h2>
+      <p class="help-text">
+        Paste your decklist below. Format: <code>1 Card Name (SET) 123</code><br>
+        Set codes, collector numbers, and markers (*F*, *E*) are ignored — only card names are used for search.
+      </p>
+      <textarea id="cardListInput" rows="12" placeholder="1 Adorned Pouncer (HOU) 2&#10;1 Doran, the Siege Tower (2X2) 201&#10;1 Cultivate (40K) 211&#10;..."></textarea>
+
+      <div class="controls">
+        <button id="searchBtn" class="btn btn-primary">Search Prices</button>
+        <button id="stopBtn" class="btn btn-danger" disabled>Stop</button>
+        <button id="clearBtn" class="btn btn-secondary">Clear Results</button>
+      </div>
+    </section>
+
+    <!-- Progress Section -->
+    <section id="progressSection" class="progress-section hidden">
+      <div class="progress-bar-container">
+        <div id="progressBar" class="progress-bar" style="width: 0%"></div>
+      </div>
+      <p id="progressText" class="progress-text">Preparing...</p>
+    </section>
+
+    <!-- Results Section -->
+    <section id="resultsSection" class="results-section">
+      <h2>Results</h2>
+      <div class="table-controls">
+        <button id="exportCsvBtn" class="btn btn-small" disabled>Export CSV</button>
+        <span id="resultCount" class="result-count"></span>
+        <span id="stockWarning" class="stock-warning"></span>
+        <span id="totalBestPrice" class="total-best-price"></span>
+      </div>
+      <div class="table-wrapper">
+        <table id="resultsTable">
+          <thead>
+            <tr>
+              <th class="sortable" data-sort="name">Card Name <span class="sort-icon"></span></th>
+              <th class="sortable" data-sort="najada">Najada.games <span class="sort-icon"></span></th>
+              <th class="sortable" data-sort="cerny">CernyRytir.cz <span class="sort-icon"></span></th>
+              <th class="sortable" data-sort="blacklotus">BlackLotus.cz <span class="sort-icon"></span></th>
+              <th class="sortable" data-sort="best">Best Price <span class="sort-icon"></span></th>
+            </tr>
+          </thead>
+          <tbody id="resultsBody">
+            <tr class="empty-row">
+              <td colspan="5">No results yet. Paste a card list and click "Search Prices".</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>MPCT &mdash; Prices are scraped from public listings. Results may vary. Use responsibly.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

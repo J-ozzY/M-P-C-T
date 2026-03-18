@@ -1,0 +1,28 @@
+{
+  "name": "mpct",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc && node -e \"const fs=require('fs');fs.cpSync('src/public','dist/public',{recursive:true})\"",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "axios": "^1.13.6",
+    "better-sqlite3": "^12.8.0",
+    "cheerio": "^1.2.0",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.5.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
